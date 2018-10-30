@@ -36,7 +36,7 @@ class NaverBlogCrawler:
         postIdList = self.getEntirePostIdList(startPage)
         postsNum = len(postIdList)
         print("[ Getting post address list in {0:0.2f}s ]".format((time.time() - initTime)))
-        print("[ Total posts : {}posts. Backup begins... ]".format(postsNum))
+        print("[ Total posts : {} posts. Backup begins... ]".format(postsNum))
         self.copyCSSfile()
         crawlingProgressBar = ProgressBar(max_value=postsNum, redirect_stdout=True)
         crawlingProgressBar.update(curPost)
@@ -121,7 +121,8 @@ class NaverBlogPostCrawlThread(Thread):
             if self.isDevMode:
                 print("{}/{}".format(curPost, postsNum))
             curPost += 1
-            crawlingProgressBar.update(curPost)
+            if curPost <= postsNum:
+                crawlingProgressBar.update(curPost)
             urlPrefix = "https://blog.naver.com/" + naverId + "/"
             postingCrawler = NaverBlogPostCrawler.NaverBlogPostCrawler(urlPrefix+postUrl, self.isDevMode)
             postingCrawler.run()
