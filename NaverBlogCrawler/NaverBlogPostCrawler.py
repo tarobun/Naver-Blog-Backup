@@ -74,6 +74,9 @@ class NaverBlogPostCrawler:
         else:
             publishDate = self.postFrameSoup.find('p', {'class': 'date fil5 pcol2 _postAddDate'})
 
+        if publishDate is None:
+            publishDate = self.postFrameSoup.find('span', {'class': 'se_publishDate pcol2'})
+
         publishDate = str(publishDate)
         if self.isRelativePostDate(publishDate):
             publishDate = self.getRelativePostDate(publishDate)
