@@ -32,7 +32,11 @@ class SE2PostViewArea:
         return header
 
     def getFooter(self):
-        footer = re.search("</div>*", self.postViewArea).group()
+        footer = ""
+        try:
+            footer = re.search("</div>*", self.postViewArea).group()
+        except:
+            footer = " "
         return footer
 
     def getParagraphs(self):
