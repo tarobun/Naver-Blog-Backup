@@ -201,7 +201,7 @@ class NaverBlogPostCrawler:
         return postViewArea
 
     def writeHtmlToFile(self):
-        if self.editorVersion is 3:
+        try:
             components = self.getSE3Components()
             self.printDevMessage("[")
             for component in components:
@@ -209,7 +209,10 @@ class NaverBlogPostCrawler:
                 component.handleAlignTags()
                 self.backupFile.write(str(component))
             self.printDevMessage("]")
-        elif self.editorVersion is 2:
+        except:
+            pass
+
+        if len(components) < 1:
             postViewArea = self.getSE2PostViewArea()
             postViewArea.handleParagraphs(self)
             postViewArea.writeSE2PostToFile(self)
