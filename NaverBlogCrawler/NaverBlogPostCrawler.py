@@ -163,9 +163,8 @@ class NaverBlogPostCrawler:
         return fixedDirName
 
     def getTitleTag(self):
-        if self.editorVersion is 3:
-            titleTag = self.postFrameSoup.find('div', {'class': 'se_editView se_title'})
-        else:
+        titleTag = self.postFrameSoup.find('div', {'class': 'se_editView se_title'})
+        if titleTag is None: 
             titleTag = self.postFrameSoup.find('span', {'class': 'pcol1 itemSubjectBoldfont'})
         return titleTag
 
